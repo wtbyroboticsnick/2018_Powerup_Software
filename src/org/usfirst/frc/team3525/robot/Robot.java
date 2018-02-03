@@ -7,13 +7,28 @@
 
 package org.usfirst.frc.team3525.robot;
 
+import org.usfirst.frc.team3525.robot.subsystems.Climber_Subsystem;
+import org.usfirst.frc.team3525.robot.subsystems.DriveTrain_Subsystem;
+import org.usfirst.frc.team3525.robot.subsystems.Forklift_Subsystem;
+import org.usfirst.frc.team3525.robot.subsystems.Intake_Subsystem;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+/*import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3525.robot.commands.ExampleCommand;
+import org.usfirst.frc.team3525.robot.subsystems.Climber_Subsystem;
+import org.usfirst.frc.team3525.robot.subsystems.DriveTrain_Subsystem;
 import org.usfirst.frc.team3525.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team3525.robot.subsystems.Forklift_Subsystem;
+import org.usfirst.frc.team3525.robot.subsystems.Intake_Subsystem;*/
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,11 +36,18 @@ import org.usfirst.frc.team3525.robot.subsystems.ExampleSubsystem;
  * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the build.properties file in the
  * project.
+ * @param <Voltage>
  */
-public class Robot extends TimedRobot {
-	public static final ExampleSubsystem kExampleSubsystem
-			= new ExampleSubsystem();
+public class Robot<Voltage> extends TimedRobot {
+	/*public static final ExampleSubsystem kExampleSubsystem
+			= new ExampleSubsystem();*/
+	
+	//This section makes the subsystems and OI public so it can be used in the commands// 
+	public static final DriveTrain_Subsystem DriveTrain=new DriveTrain_Subsystem();
 	public static OI m_oi;
+	public static final Climber_Subsystem Climber= new Climber_Subsystem();
+	public static final Intake_Subsystem Intake=new Intake_Subsystem();
+	public static final Forklift_Subsystem Forklift=new Forklift_Subsystem();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -37,9 +59,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
+		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
 	}
 
 	/**
@@ -110,6 +133,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		//RobotMap.smartupdate();
+
 	}
 
 	/**
@@ -117,5 +142,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+	
 	}
 }
